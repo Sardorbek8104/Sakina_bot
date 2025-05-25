@@ -273,8 +273,8 @@ public class SakinaBot extends TelegramLongPollingBot {
             throw new RuntimeException("Imom topilmadi");
         }
 
-        int n = 1;
-        for (int i = 100; i < 115; i++) {
+        int n = 105;
+        for (int i = 105; i < 115; i++) {
             String formatted = String.format("%03d", n);
             String audioUrls = "https://server8.mp3quran.net/" + pathName + "/" + formatted + ".mp3";
             sendAudio.setChatId(chatId);
