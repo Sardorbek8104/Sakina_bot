@@ -9,6 +9,7 @@ import uz.pdp.util.JsonUtil;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 
 public class MonthlyPrayerTimesUtil {
@@ -18,6 +19,7 @@ public class MonthlyPrayerTimesUtil {
         URL url = getUrl();
         try {
             List<PrayerTime> roots = objectMapper.readValue(url, new TypeReference<>() {});
+            System.out.println(roots);
             JsonUtil.writeGson(FilePath.PATH_PRAYERTIMES, roots);
         } catch (IOException e) {
             e.printStackTrace();
@@ -27,10 +29,12 @@ public class MonthlyPrayerTimesUtil {
     private URL getUrl() {
         URL url = null;
         try {
-            url = new URL("https://islomapi.uz/api/monthly?region=Toshkent&month=9");
+            int currentMonth = LocalDate.now().getMonthValue();
+            url = new URL("https://islomapi.uz/api/monthly?region=Toshkent&month=" + currentMonth);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
         return url;
     }
+
 }
