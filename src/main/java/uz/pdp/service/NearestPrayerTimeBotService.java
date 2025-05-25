@@ -71,9 +71,11 @@ public class NearestPrayerTimeBotService {
             String prayerName = entry.getKey();
             LocalDateTime prayerDateTime = entry.getValue();
 
-            if (currentDateTime.isAfter(prayerDateTime)) {
+            // Hozirgi vaqt namoz vaqtidan teng yoki keyin bo‘lsa, keyingi kun uchun hisobla
+            if (!currentDateTime.isBefore(prayerDateTime)) {
                 prayerDateTime = prayerDateTime.plusDays(1);
             }
+
             Duration duration = Duration.between(currentDateTime, prayerDateTime);
             if (duration.compareTo(shortestDuration) < 0) {
                 shortestDuration = duration;
