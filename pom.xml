@@ -23,8 +23,10 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.34</version>
+            <version>1.18.32</version>
+            <scope>provided</scope>
         </dependency>
+
 
         <dependency>
             <groupId>org.telegram</groupId>
@@ -44,4 +46,13 @@
             <version>2.0.11</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

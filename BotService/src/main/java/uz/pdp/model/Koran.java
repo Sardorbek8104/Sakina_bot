@@ -23,4 +23,52 @@ public class Koran {
         public String text;
         public String transliteration;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTransliteration() {
+        return transliteration;
+    }
+
+    public void setTransliteration(String transliteration) {
+        this.transliteration = transliteration;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getTotal_verses() {
+        return total_verses;
+    }
+
+    public void setTotal_verses(int total_verses) {
+        this.total_verses = total_verses;
+    }
+
+    public ArrayList<Verse> getVerses() {
+        return verses;
+    }
+
+    public void setVerses(ArrayList<Verse> verses) {
+        this.verses = verses;
+    }
 }
