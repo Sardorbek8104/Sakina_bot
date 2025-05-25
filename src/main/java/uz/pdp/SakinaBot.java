@@ -214,12 +214,12 @@ public class SakinaBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "@translater_in_100_language_bot.";
+        return "@sakina_sakina_bot";
     }
 
     @Override
     public String getBotToken() {
-        return "7529261880:AAEBDCTs2BJgbg-LgxcVpx6CSq8cVvnOA6c";
+        return "7852900112:AAHUxwAjwldJExPa_Qk0dK8B0m9R4WNJax0";
     }
 
     private void executeEditMessage(EditMessageText editMessageText) {
