@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class JsonUtil {
@@ -12,19 +15,34 @@ public class JsonUtil {
 
     public static <T> void writeGson(String path, T t) {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        File file = new File(path);
+
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            boolean dirsCreated = parentDir.mkdirs();
+            if (!dirsCreated) {
+                System.err.println("Kataloglar yaratishda muammo bo'ldi: " + parentDir.getAbsolutePath());
+            }
+        }
+
         try {
-            objectMapper.writeValue(new File(path), t);
-        } catch (Exception e) {
+            objectMapper.writeValue(file, t);
+            System.out.println("Ma'lumot muvaffaqiyatli yozildi: " + file.getAbsolutePath());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public static <T> List<T> readGson(String path, TypeReference<List<T>> typeReference) {
-        try {
-            return objectMapper.readValue(new File(path), typeReference);
+    public static <T> T readGson(String resourcePath, TypeReference<T> typeReference) {
+        try (InputStream inputStream = JsonUtil.class.getClassLoader().getResourceAsStream(resourcePath)) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Resource not found: " + resourcePath);
+            }
+            return objectMapper.readValue(inputStream, typeReference);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
 
 }
