@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageRe
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.*;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import uz.pdp.config.BotConfig;
 import uz.pdp.menyu.MenuService;
 import uz.pdp.service.*;
 import uz.pdp.utill.ObjectUtil;
@@ -19,6 +20,7 @@ import static uz.pdp.NomozConstants.*;
 
 public class SakinaBot extends TelegramLongPollingBot {
 
+
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
@@ -27,6 +29,14 @@ public class SakinaBot extends TelegramLongPollingBot {
                 String text = message.getText();
                 Long chatId = message.getChatId();
                 if (StringUtils.equals(text, START) || text.startsWith(BACK)) {
+                    boolean isNewUser = UserService.saveUserIfNotExists(chatId);
+
+                    if (isNewUser) {
+                        SendMessage notifyAdmin = new SendMessage();
+                        notifyAdmin.setChatId(BotConfig.ADMIN_CHAT_ID.toString());
+                        notifyAdmin.setText("📥 Botga yangi foydalanuvchi kirdi: " + chatId);
+                        execute_(notifyAdmin);
+                    }
                     SendMessage sendMessage = MenuService.showMenyu(chatId);
                     execute_(sendMessage);
                 } else if (StringUtils.equals(text, ALLOH_NAME)) {
@@ -216,11 +226,19 @@ public class SakinaBot extends TelegramLongPollingBot {
     public String getBotUsername() {
         return "@sakina_sakina_bot";
     }
+//    @Override
+//    public String getBotUsername() {
+//        return "translater_in_100_language_bot";
+//    }
 
     @Override
     public String getBotToken() {
         return "7852900112:AAHUxwAjwldJExPa_Qk0dK8B0m9R4WNJax0";
     }
+//    @Override
+//    public String getBotToken() {
+//        return "7529261880:AAEBDCTs2BJgbg-LgxcVpx6CSq8cVvnOA6c";
+//    }
 
     private void executeEditMessage(EditMessageText editMessageText) {
         try {

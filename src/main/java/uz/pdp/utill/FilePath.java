@@ -6,4 +6,5 @@ public class FilePath {
     public static final String PATH_SURAHSTATE = "file/surahState.json";
     public static final String PATH_PRAYERTIMES = "file/prayerTimes.json";
     public static final String PATH_DUO = "file/duo.json";
+    public static final String PATH_USERS = "file/users.json";
 }
