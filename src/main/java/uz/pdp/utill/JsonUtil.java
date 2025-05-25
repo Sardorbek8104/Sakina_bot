@@ -27,7 +27,6 @@ public class JsonUtil {
 
         try {
             objectMapper.writeValue(file, t);
-            System.out.println("Ma'lumot muvaffaqiyatli yozildi: " + file.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }

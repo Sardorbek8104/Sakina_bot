@@ -278,7 +278,6 @@ public class SakinaBot extends TelegramLongPollingBot {
             String formatted = String.format("%03d", n);
             String audioUrls = "https://server8.mp3quran.net/" + pathName + "/" + formatted + ".mp3";
             sendAudio.setChatId(chatId);
-            System.out.println("Attempting to send audio from URL: " + audioUrls);
             sendAudio.setAudio(new InputFile(audioUrls));
             sendAudio.setCaption("Quran");
             setSendAudio(sendAudio);
