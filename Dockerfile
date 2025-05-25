@@ -1,17 +1,22 @@
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+# 1. Build bosqichi (agar Docker ichida build qilishni xohlasangiz)
+FROM maven:3.9.3-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
-COPY BotService/pom.xml ./pom.xml
-COPY BotService/src ./src
+# pom.xml va src ni konteynerga nusxalash
+COPY pom.xml .
+COPY src ./src
 
+# Maven bilan build qilish
 RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:17-jdk-alpine
+# 2. Run bosqichi
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/target/BotService-1.0-SNAPSHOT.jar app.jar
+# Build bosqichidan .jar faylni olish
+COPY --from=build /app/target/Sakina_bot-1.0-SNAPSHOT.jar app.jar
 
+# Java jarni ishga tushirish
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
