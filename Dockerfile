@@ -1,4 +1,5 @@
-FROM maven:3.9.3-openjdk-21 AS build
+# Build bosqichi
+FROM maven:3.9.3-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
@@ -7,7 +8,8 @@ COPY src ./src
 
 RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:21-jre-alpine
+# Run bosqichi
+FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
