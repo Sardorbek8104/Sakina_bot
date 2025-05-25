@@ -13,6 +13,7 @@ FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/target/Sakina_bot-1.0-SNAPSHOT.jar app.jar
+# 'jar-with-dependencies' faylni nusxa olish kerak
+COPY --from=build /app/target/Sakina_bot-1.0-SNAPSHOT-jar-with-dependencies.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
