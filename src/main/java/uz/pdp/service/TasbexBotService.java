@@ -13,7 +13,7 @@ public class TasbexBotService {
     private static final Map<Long, Integer> tasbexMap = new HashMap<>();
 
     public SendMessage getTasbex(long chatId, String data) {
-        tasbexMap.put(chatId,0);
+        tasbexMap.put(chatId, tasbexMap.getOrDefault(chatId, 0));
         SendMessage sendMessage = new SendMessage();
         InlineKeyboardMarkup inlineKeyboardMarkup = createInlineKeyboardMarkup(data + "\uD83D\uDCFF", "tasbex");
         sendMessage.setChatId(chatId);
