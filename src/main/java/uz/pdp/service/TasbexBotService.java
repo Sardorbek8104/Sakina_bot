@@ -15,7 +15,7 @@ public class TasbexBotService {
     public SendMessage getTasbex(long chatId, String data) {
         tasbexMap.put(chatId, tasbexMap.getOrDefault(chatId, 0));
         SendMessage sendMessage = new SendMessage();
-        InlineKeyboardMarkup inlineKeyboardMarkup = createInlineKeyboardMarkup(data + "\uD83D\uDCFF", "tasbex");
+        InlineKeyboardMarkup inlineKeyboardMarkup = createInlineKeyboardMarkup(String.valueOf(tasbexMap.get(chatId)) + "\uD83D\uDCFF", "tasbex");
         sendMessage.setChatId(chatId);
         sendMessage.setReplyMarkup(inlineKeyboardMarkup);
 
