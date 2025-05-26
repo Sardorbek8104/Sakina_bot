@@ -12,7 +12,7 @@ import uz.pdp.config.BotConfig;
 import uz.pdp.menyu.MenuService;
 import uz.pdp.service.*;
 import uz.pdp.utill.ObjectUtil;
-
+import uz.pdp.model.User;
 import java.util.Date;
 
 import static uz.pdp.BotConstants.*;
@@ -29,12 +29,19 @@ public class SakinaBot extends TelegramLongPollingBot {
                 String text = message.getText();
                 Long chatId = message.getChatId();
                 if (StringUtils.equals(text, START) || text.startsWith(BACK)) {
-                    boolean isNewUser = UserService.saveUserIfNotExists(chatId);
+                    org.telegram.telegrambots.meta.api.objects.User fromUser = message.getFrom();
+                    String firstName = fromUser.getFirstName();
+                    String lastName = fromUser.getLastName(); // optional
+                    String username = fromUser.getUserName(); // optional
+                    String language = fromUser.getLanguageCode();
+
+                    User user = new User(chatId,firstName,lastName,username,language);
+                    boolean isNewUser = UserService.saveUserIfNotExists(chatId,user);
 
                     if (isNewUser) {
                         SendMessage notifyAdmin = new SendMessage();
                         notifyAdmin.setChatId(BotConfig.ADMIN_CHAT_ID.toString());
-                        notifyAdmin.setText("📥 Botga yangi foydalanuvchi kirdi: " + chatId);
+                        notifyAdmin.setText("📥 Botga yangi foydalanuvchi kirdi: " + firstName + " " + lastName + " " + username + " " + language + " chatId" + chatId);
                         execute_(notifyAdmin);
                     }
                     SendMessage sendMessage = MenuService.showMenyu(chatId);

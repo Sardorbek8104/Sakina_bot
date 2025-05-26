@@ -10,6 +10,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class NearestPrayerTimeBotService {
                 JSONObject jsonObject = new JSONObject(inline.toString());
                 JSONObject times = jsonObject.getJSONObject("times");
 
-                LocalDateTime currentDateTime = LocalDateTime.now();
+                LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("Asia/Tashkent"));
                 return findNearestPrayer(currentDateTime, times);
             }
         } catch (IOException e) {

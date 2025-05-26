@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserService {
 
-    public static boolean saveUserIfNotExists(Long chatId) {
+    public static boolean saveUserIfNotExists(Long chatId, User user) {
         File file = new File(FilePath.PATH_USERS);
         List<User> userList = new ArrayList<>();
 
@@ -23,11 +23,10 @@ public class UserService {
         boolean exists = userList.stream().anyMatch(u -> u.getChatId().equals(chatId));
 
         if (!exists) {
-            userList.add(new User(chatId));
+            userList.add(user);
             JsonUtil.writeGson(FilePath.PATH_USERS, userList);
-            return true; // yangi foydalanuvchi qo‘shildi
+            return true;
         }
-        return false; // allaqachon mavjud
+        return false;
     }
-
 }
