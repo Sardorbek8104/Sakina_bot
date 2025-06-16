@@ -17,8 +17,10 @@ public class MonthlyPrayerTimesUtil {
 
     public void write() {
         URL url = getUrl();
+
         try {
             List<PrayerTime> roots = objectMapper.readValue(url, new TypeReference<>() {});
+            System.out.println(roots);
             JsonUtil.writeGson(FilePath.PATH_PRAYERTIMES, roots);
         } catch (IOException e) {
             e.printStackTrace();

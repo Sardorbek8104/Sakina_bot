@@ -52,6 +52,7 @@ public class PrayerTimeInlineBotService {
     public SendMessage sendPrayerTimesKeyboard(long chatId) {
         ObjectUtil.monthlyPrayerTimesUtil.write();
         PrayerTime root = root();
+        System.out.println("root - " + root.toString());
         String monthName = new DateFormatSymbols().getMonths()[root.getMonth() - 1];
 
         List<String> date = List.of("Bomdod:  " + root.getTimes().getTong_saharlik(),
